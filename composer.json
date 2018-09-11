@@ -1,5 +1,5 @@
 {
-    "name"       : "clifgriffin/simple-ldap-login",
+    "name"       : "angry-creative/simple-ldap-login",
     "description": "Simple LDAP Login",
     "homepage"   : "http://cgd.io",
     "keywords"    : ["wordpress", "ldap", "login", "active directory"],
