@@ -1,31 +1,15 @@
-# Simple LDAP Login #
-**Contributors:** clifgriffin, angrycreative  
-**Donate link:** http://cgd.io  
-**Tags:** LDAP, authentication, login, active directory, adLDAP  
-**Requires at least:** 3.4  
-**Tested up to:** 4.5  
-**Stable tag:** 1.8.0  
-**License:** GPLv2 or later  
+# LDAP Login #
+**Contributors:** clifgriffin, angrycreative
+**Tags:** LDAP, authentication, login, active directory, adLDAP
+**Requires at least:** 3.4
+**Tested up to:** 4.5
+**Stable tag:** 2.0
+**License:** GPLv2 or later
 
-Integrating WordPress with LDAP shouldn't be difficult. Now it isn't. Simple LDAP Login provides all of the features, none of the hassles.
+Integrating WordPress with LDAP shouldn't be difficult. Now it isn't. LDAP Login provides all of the features, none of the hassles.
 
 ## Description ##
 Having a single login for every service is a must in large organizations. This plugin allows you to integrate WordPress with LDAP quickly and easily. Like, really really easy.
-
-**Contributing**
-This is a community project now. Most development is done by users like you who find bugs and fix them, or find new ways to make the plugin more powerful for everyone.
-
-The easiest way to contribute to this plugin is to submit a GitHub pull request. Here's the repo:
-https://github.com/clifgriffin/simple-ldap-login
-
-**Support**
-
-If you need support, file an issue report here:
-https://github.com/clifgriffin/simple-ldap-login/issues
-
-**Special Requests**
-
-**If you need a customization or change specific to your install, I am available for hire. Shoot me an e-mail:** clifgriffin[at]gmail.com  
 
 ### Features ###
 
@@ -50,6 +34,9 @@ Simple LDAP Login adds an authentication filter to WordPress that authentication
 This is high level overview. This should answer the philosophical questions about how the plugin works. If the plugin is unable to authenticate the user, it should pass it down the chain to WordPress. (Unless LDAP Exclusive is turned on, in which case it won't.)
 
 ## Changelog ##
+**Version 2.0**
+* Forked and renamed
+
 **Version 1.6.0**
 
 * New filter sll_remove_default_authentication_hook lets you override local password fallback.
@@ -59,7 +46,7 @@ This is high level overview. This should answer the philosophical questions abou
 **Version 1.5.5**
 
 * Fix syntax error.
-* Don’t sanitize user info.
+* Don't sanitize user info.
 
 **Version 1.5.4**
 
@@ -91,7 +78,7 @@ This is high level overview. This should answer the philosophical questions abou
 * The options have been overhauled to make configuration much easier. Focuses on individual features rather than "modes" that encapsulate several behaviors.
 * Admin pages now use WordPress admin styles and behaviors.
 * Tested with Active Directory. I recommend OpenLDAP users test carefully before implementing in their production environments.
-* Added global on off switch so you can easily disable LDAP authentication without deactivating.  
+* Added global on off switch so you can easily disable LDAP authentication without deactivating.
 
 **Version 1.4.0.5.1**
 
@@ -116,7 +103,7 @@ This is high level overview. This should answer the philosophical questions abou
 * Updates adLDAP to 3.3.2
 * Fixes issue with users in recursive OUs not being found.
 * Fixes issues with different Base DN formats.
-*** NOTE:** Please be catious in updating. As I don't have an OpenLDAP install, I am unable to independently confirm these fix the problems. If you have issues, revert to 1.4.0.1 and e-mail me: clifgriffin[at]gmail.com.  Likewise, If you can confirm these changes are effective, also let me know. :)  
+*** NOTE:** Please be catious in updating. As I don't have an OpenLDAP install, I am unable to independently confirm these fix the problems. If you have issues, revert to 1.4.0.1 and e-mail me: clifgriffin[at]gmail.com.  Likewise, If you can confirm these changes are effective, also let me know. :)
 
 **Version 1.4.0.1**
 
@@ -209,7 +196,7 @@ If you are confident your settings are correct and it still does not work, it ma
 Unfortunately I can't be relied upon to assist with these types of requests. I chose not to support these scenarios because they are infrequent and because they confuse everyone else.
 
 ### It's still not working! How can I get help? ###
-**The easiest way to get help is to post a comment on my blog:** http://clifgriffin.com/simple-ldap-login/. I'll do my best to get you up and running!  
+**The easiest way to get help is to post a comment on my blog:** http://clifgriffin.com/simple-ldap-login/. I'll do my best to get you up and running!
 
 ## Screenshots ##
 

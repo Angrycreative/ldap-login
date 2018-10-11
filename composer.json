@@ -1,5 +1,5 @@
 {
-    "name"       : "angrycreative/simple-ldap-login",
+    "name"       : "ac-component/ldap-login",
     "description": "Simple LDAP Login",
     "homepage"   : "http://cgd.io",
     "keywords"    : ["wordpress", "ldap", "login", "active directory"],
@@ -9,11 +9,11 @@
     {
         "name"    : "Clif Griffin",
         "homepage": "http://cgd.io"
+    },
+    {
+	    "name" : "Angry Creative"
     }
     ],
-    "support"     : {
-        "issues": "https://github.com/clifgriffin/simple-ldap-login/issues"
-    },
     "require"    : {
         "composer/installers": "~1.0"
     }

@@ -1,14 +1,14 @@
 <?php
 /*
-  Plugin Name: Simple LDAP Login
+  Plugin Name: LDAP Login
   Plugin URI: http://clifgriffin.com/simple-ldap-login/
   Description:  Authenticate WordPress against LDAP.
-  Version: 1.8.0
+  Version: 2.0
   Author: Clif Griffin Development Inc.
   Author URI: http://cgd.io
  */
 
-class SimpleLDAPLogin {
+class LDAPLogin {
 
     private static $prefix_s = "sll_";
     static $instance = false;
@@ -17,7 +17,7 @@ class SimpleLDAPLogin {
     var $adldap;
     var $ldap;
     var $network_version = null;
-    var $version = "180";
+    var $version = '200';
     // openssl constants
     private static $openssl_method = "AES-256-CBC";
 
@@ -26,11 +26,11 @@ class SimpleLDAPLogin {
     }
 
     public static function get_field_settings_s() {
-        return SimpleLDAPLogin::$prefix_s . "settings";
+        return LDAPLogin::$prefix_s . "settings";
     }
 
     public function __construct() {
-        $this->prefix = SimpleLDAPLogin::$prefix_s;
+        $this->prefix = LDAPLogin::$prefix_s;
         $this->settings = $this->get_settings_obj();
 
         if (trim($this->get_setting('directory')) == "ad") {
@@ -99,7 +99,7 @@ class SimpleLDAPLogin {
     function login_sso() {
         // Respect current login
         if (!is_user_logged_in() && $this->is_sso_configuration_ok() && $this->is_valid_call_sso()) {
-            // Automatic login 
+            // Automatic login
             $usu = $this->authenticate(NULL, $this->get_sso_logged_user(), $this->get_sso_logged_user(), TRUE);
             wp_set_current_user($usu->ID, $usu->user_login);
             wp_set_auth_cookie($usu->ID);
@@ -231,36 +231,37 @@ class SimpleLDAPLogin {
     function menu() {
         if ($this->is_network_version()) {
             add_submenu_page(
-                    "settings.php", "Simple LDAP Login", "Simple LDAP Login", 'manage_network_plugins', "simple-ldap-login", array($this, 'admin_page')
+                    "settings.php", "LDAP Login", "LDAP Login", 'manage_network_plugins', "simple-ldap-login", array($this, 'admin_page')
             );
         } else {
-            add_options_page("Simple LDAP Login", "Simple LDAP Login", 'manage_options', "simple-ldap-login", array($this, 'admin_page'));
+            add_options_page("LDAP Login", "LDAP Login", 'manage_options', "ldap-login", array($this, 'admin_page'));
         }
     }
 
     function admin_page() {
-        include 'Simple-LDAP-Login-Admin.php';
+        include 'LDAP-Login-Admin.php';
     }
 
     function get_settings_obj() {
         if ($this->is_network_version()) {
-            return get_site_option(SimpleLDAPLogin::get_field_settings_s(), false);
+            return get_site_option(LDAPLogin::get_field_settings_s(), false);
         } else {
-            return get_option(SimpleLDAPLogin::get_field_settings_s(), false);
+            return get_option(LDAPLogin::get_field_settings_s(), false);
         }
     }
 
     function set_settings_obj($newobj) {
         if ($this->is_network_version()) {
-            return update_site_option(SimpleLDAPLogin::get_field_settings_s(), $newobj);
+            return update_site_option(LDAPLogin::get_field_settings_s(), $newobj);
         } else {
-            return update_option(SimpleLDAPLogin::get_field_settings_s(), $newobj);
+            return update_option(LDAPLogin::get_field_settings_s(), $newobj);
         }
     }
 
     function set_setting($option = false, $newvalue) {
-        if ($option === false)
+        if ($option === false) {
             return false;
+        }
 
         $this->settings = $this->get_settings_obj($this->prefix);
         $this->settings[$option] = $newvalue;
@@ -268,8 +269,9 @@ class SimpleLDAPLogin {
     }
 
     function get_setting($option = false) {
-        if ($option === false || !isset($this->settings[$option]))
+        if ($option === false || !isset($this->settings[$option])) {
             return false;
+        }
 
         return apply_filters($this->prefix . 'get_setting', $this->settings[$option], $option);
     }
@@ -325,13 +327,13 @@ class SimpleLDAPLogin {
         if (str_true($this->get_setting('enabled'))) {
             ?>
             <div class="notice notice-success is-dismissible">
-                <p><?php _e('Simple LDAP Login settings have been saved.', $this->prefix); ?></p>
+                <p><?php _e('LDAP Login settings have been saved.', $this->prefix); ?></p>
             </div>
             <?php
         } else {
             ?>
             <div class="notice notice-error is-dismissible">
-                <p><?php _e('Simple LDAP Login is disabled.', $this->prefix); ?></p>
+                <p><?php _e('LDAP Login is disabled.', $this->prefix); ?></p>
             </div>
             <?php
         }
@@ -386,7 +388,7 @@ class SimpleLDAPLogin {
                 if (!$user || ( strtolower($user->user_login) !== strtolower($username) )) {
                     if (!str_true($this->get_setting('create_users'))) {
                         do_action('wp_login_failed', $username);
-                        return $this->ldap_auth_error('invalid_username', __('<strong>Simple LDAP Login Error</strong>: LDAP credentials are correct, but there is no matching WordPress user and user creation is not enabled.'));
+                        return $this->ldap_auth_error('invalid_username', __('<strong>LDAP Login Error</strong>: LDAP credentials are correct, but there is no matching WordPress user and user creation is not enabled.'));
                     }
 
                     $new_user = wp_insert_user($this->get_user_data($username, trim($this->get_setting('directory'))));
@@ -410,7 +412,7 @@ class SimpleLDAPLogin {
                         return $new_user;
                     } else {
                         do_action('wp_login_failed', $username);
-                        return $this->ldap_auth_error("{$this->prefix}login_error", __('<strong>Simple LDAP Login Error</strong>: LDAP credentials are correct and user creation is allowed but an error occurred creating the user in WordPress. Actual error: ' . $new_user->get_error_message()));
+                        return $this->ldap_auth_error("{$this->prefix}login_error", __('<strong>LDAP Login Error</strong>: LDAP credentials are correct and user creation is allowed but an error occurred creating the user in WordPress. Actual error: ' . $new_user->get_error_message()));
                     }
                 } else {
 
@@ -433,10 +435,10 @@ class SimpleLDAPLogin {
                     return new WP_User($user->ID);
                 }
             } else {
-                return $this->ldap_auth_error("{$this->prefix}login_error", __('<strong>Simple LDAP Login Error</strong>: Your LDAP credentials are correct, but you are not in an authorized LDAP group.'));
+                return $this->ldap_auth_error("{$this->prefix}login_error", __('<strong>LDAP Login Error</strong>: Your LDAP credentials are correct, but you are not in an authorized LDAP group.'));
             }
         } elseif (str_true($this->get_setting('high_security'))) {
-            return $this->ldap_auth_error('invalid_username', __('<strong>Simple LDAP Login</strong>: Simple LDAP Login could not authenticate your credentials. The security settings do not permit trying the WordPress user database as a fallback.'));
+            return $this->ldap_auth_error('invalid_username', __('<strong>LDAP Login</strong>: LDAP Login could not authenticate your credentials. The security settings do not permit trying the WordPress user database as a fallback.'));
         }
 
         do_action($this->prefix . 'auth_failure');
@@ -460,7 +462,7 @@ class SimpleLDAPLogin {
         if ($directory == "ad") {
             $result = $this->adldap->authenticate($this->get_domain_username($username), $password, FALSE, $sso_auth);
         } elseif ($directory == "ol") {
-            // TODO - implement SSO to others directories 
+            // TODO - implement SSO to others directories
             $this->ldap = ldap_connect(join(' ', (array) $this->get_setting('domain_controllers')), (int) $this->get_setting('ldap_port'));
             ldap_set_option($this->ldap, LDAP_OPT_PROTOCOL_VERSION, (int) $this->get_setting('ldap_version'));
             if (str_true($this->get_setting('use_tls'))) {
@@ -753,4 +755,4 @@ if (!function_exists('str_true')) {
 
 }
 
-$SimpleLDAPLogin = SimpleLDAPLogin::getInstance();
+$LDAPLogin = LDAPLogin::getInstance();

@@ -4,7 +4,7 @@ Donate link: http://cgd.io
 Tags: LDAP, authentication, login, active directory, adLDAP
 Requires at least: 3.4
 Tested up to: 4.5.0
-Stable tag: 1.6.0
+Stable tag: 2.0
 License: GPLv2 or later
 
 Integrating WordPress with LDAP shouldn't be difficult. Now it isn't. Simple LDAP Login provides all of the features, none of the hassles.
