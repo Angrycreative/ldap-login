@@ -1,5 +1,5 @@
 {
-    "name"       : "ac-component/ldap-login",
+    "name"       : "angry-creative/ldap-login",
     "description": "Simple LDAP Login",
     "homepage"   : "http://cgd.io",
     "keywords"    : ["wordpress", "ldap", "login", "active directory"],
