@@ -17,7 +17,7 @@ class LDAPLogin {
     var $adldap;
     var $ldap;
     var $network_version = null;
-    var $version = '200';
+    var $version = '201';
     // openssl constants
     private static $openssl_method = "AES-256-CBC";
 
